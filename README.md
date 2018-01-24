@@ -1,0 +1,1 @@
+# SpanWords-translator
