@@ -4,6 +4,7 @@ const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
 const cssnano = require('gulp-cssnano');
 const del = require('del');
+const babel = require('gulp-babel');
 const htmlmin = require('gulp-htmlmin');
 const imagemin = require('gulp-imagemin');
 
@@ -47,7 +48,7 @@ gulp.task('img', function() {
 gulp.task('watch', function() {
     gulp.watch('./src/*.html', ['html']);
     gulp.watch('./src/sass/**/*.scss', ['css']);
-    gulp.watch('./src/js/*.js', ['css']);
+    gulp.watch('./src/js/*.js', ['js']);
 });
 
 gulp.task('server', function() {
