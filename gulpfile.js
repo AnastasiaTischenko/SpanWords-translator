@@ -33,6 +33,9 @@ gulp.task('css', function() {
 
 gulp.task('js', function() {
     gulp.src('./src/js/script.js')
+        .pipe(babel({
+            presets: ['env']
+        }))
         .pipe(gulp.dest('./dist/js'))
         .pipe(browserSync.reload({
             stream: true

@@ -6,14 +6,22 @@
     <link rel="stylesheet" href="./styles/styles.css">
 </head>
 <body>
-   <p> Переведено сервисом «Яндекс.Переводчик с активной ссылкой на страницу <a href="http://translate.yandex.ru/">Yandex</a></p>
-   <p><select name="" id="from_lang"></select></p>
-    <textarea name="" id="from_text" cols="30" rows="10"></textarea>
-    <button id="translate">Translate</button>
-    <p><select name="" id="to_lang"></select></p>
-    <div class="wrap">
-        <p id="to_text"></p>
-    </div>
+  <div class="logo_line">
+      <img src="./img/logo.png" alt="">
+  </div>
+   <div class="main">
+       <div class="selects">
+           <ul>
+               <li><select name="" id="from_lang"></select></li>
+               <li><button id="change_lang"><img src="./img/change.png" alt=""></button></li>
+               <li><select name="" id="to_lang"></select></li>
+           </ul>
+       </div>
+        <textarea name="" id="from_text" cols="30" rows="10"></textarea>
+        <button id="translate">Translate </button>
+        
+        <div id="to_text"></div>
+   </div>
     <script src="js/script.js"></script>
 </body>
 </html>
