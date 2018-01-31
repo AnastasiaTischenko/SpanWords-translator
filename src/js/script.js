@@ -14,20 +14,17 @@ const spanWords = (() => {
         const sourceText = TRANS_FROM.value;
         const sourceLang = SELECT_FROM.options[SELECT_FROM.selectedIndex].value;
         const targetLang = SELECT_TO.options[SELECT_TO.selectedIndex].value;
-        const url = API_INFO.apiTrans + '?'
-                  + '&key=' + API_INFO.key
-                  + '&text=' + sourceText
-                  + '&lang=' + sourceLang + '-' + targetLang
-                  + '&format=plain'
+        const url = `${API_INFO.apiTrans}?&key=${API_INFO.key}&text=${sourceText}&lang=${sourceLang}-${targetLang}&format=plain`;
         fetch(url)
             .then((resp) => {
                 return resp.json()
             })
-            .then((data) => {
+            .then(data => {
                 TRANS_TO.innerText = data.text[0];
+            document.getElementsByClassName('alert')[0].innerHTML = '';
             }) 
             .catch(error => {
-                alert('Введите коректные данные или перезагрузите страницу'); 
+                document.getElementsByClassName('alert')[0].innerHTML = 'Введите коректные данные или перезагрузите страницу'; 
             });
     }
     
@@ -35,9 +32,8 @@ const spanWords = (() => {
         CHANGE_LANG.addEventListener('click', swapLang, false);
         cleanField();
         const autoLang = 'ru';
-        const url = API_INFO.apiLang + '?' 
-                + '&key=' + API_INFO.key 
-                + '&ui=' + autoLang;
+        const url = `${API_INFO.apiLang}?&key=${API_INFO.key}&ui=${autoLang}`;
+        console.log(url)
         fetch(url)
             .then((resp) => {
                 return resp.json()
@@ -75,6 +71,7 @@ const spanWords = (() => {
         document.getElementsByClassName('main')[0].insertBefore(btn, TRANS_FROM.nextSibling);
         btn.addEventListener('click', function() {
             TRANS_FROM.value = '';
+            TRANS_TO.innerText = '';
         }, false);
     };
     
@@ -85,7 +82,7 @@ const spanWords = (() => {
     }
     
     function selectPrint(select) {
-        let out = "";
+        let out = '';
             for (var key in this){
                 out += `<option value="${key}">${this[key]}</option>`;
             }
@@ -103,10 +100,6 @@ const spanWords = (() => {
     }
 })();
 
-window.addEventListener('load', function() {
-    spanWords.selects();
-}, false)
+window.addEventListener('load', spanWords.selects, false)
 
-document.getElementById('translate').addEventListener('click', function(){
-    spanWords.translate();
-}, false);
+document.getElementById('translate').addEventListener('click', spanWords.translate, false);

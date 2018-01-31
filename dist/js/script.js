@@ -16,13 +16,14 @@ var spanWords = function () {
         var sourceText = TRANS_FROM.value;
         var sourceLang = SELECT_FROM.options[SELECT_FROM.selectedIndex].value;
         var targetLang = SELECT_TO.options[SELECT_TO.selectedIndex].value;
-        var url = API_INFO.apiTrans + '?' + '&key=' + API_INFO.key + '&text=' + sourceText + '&lang=' + sourceLang + '-' + targetLang + '&format=plain';
+        var url = API_INFO.apiTrans + '?&key=' + API_INFO.key + '&text=' + sourceText + '&lang=' + sourceLang + '-' + targetLang + '&format=plain';
         fetch(url).then(function (resp) {
             return resp.json();
         }).then(function (data) {
             TRANS_TO.innerText = data.text[0];
+            document.getElementsByClassName('alert')[0].innerHTML = '';
         }).catch(function (error) {
-            alert('Введите коректные данные или перезагрузите страницу');
+            document.getElementsByClassName('alert')[0].innerHTML = 'Введите коректные данные или перезагрузите страницу';
         });
     }
 
@@ -30,7 +31,8 @@ var spanWords = function () {
         CHANGE_LANG.addEventListener('click', swapLang, false);
         cleanField();
         var autoLang = 'ru';
-        var url = API_INFO.apiLang + '?' + '&key=' + API_INFO.key + '&ui=' + autoLang;
+        var url = API_INFO.apiLang + '?&key=' + API_INFO.key + '&ui=' + autoLang;
+        console.log(url);
         fetch(url).then(function (resp) {
             return resp.json();
         }).then(function (_ref) {
@@ -66,6 +68,7 @@ var spanWords = function () {
         document.getElementsByClassName('main')[0].insertBefore(btn, TRANS_FROM.nextSibling);
         btn.addEventListener('click', function () {
             TRANS_FROM.value = '';
+            TRANS_TO.innerText = '';
         }, false);
     };
 
@@ -76,7 +79,7 @@ var spanWords = function () {
     }
 
     function selectPrint(select) {
-        var out = "";
+        var out = '';
         for (var key in this) {
             out += '<option value="' + key + '">' + this[key] + '</option>';
         }
@@ -93,10 +96,6 @@ var spanWords = function () {
     };
 }();
 
-window.addEventListener('load', function () {
-    spanWords.selects();
-}, false);
+window.addEventListener('load', spanWords.selects, false);
 
-document.getElementById('translate').addEventListener('click', function () {
-    spanWords.translate();
-}, false);
+document.getElementById('translate').addEventListener('click', spanWords.translate, false);
